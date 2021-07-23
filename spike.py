@@ -1,41 +1,46 @@
 import turtle
 import random
+import time
 import math
 
 def main():
+  screen = turtle.Screen()
+  screen.setup(900, 900)
+  drawSpikes()
+
+def drawSpikes():
   t = turtle.Turtle()
-  x = 0
-  y = 0
   penSize = 2
   t.pensize(penSize)
   t.speed(0)
 
-  pt1 = {'x': -600, 'y': -400}
-  pt2 = {'x': 1000, 'y': 1000}
-  depth = 6
+  x = -350
+  y = -350
+  length = 3000
+  depth = 5
   angle = 45
-  length = lengthOfLine(pt1, pt2) / 4**depth
-  print(length)
 
-  turns = getTurns(depth)
+  for rounds in range(depth+1):
+    length = length / 3
+    move(t, x, y)
+    t.setheading(angle)
 
-  move(t, pt1['x'], pt1['y'])
-  t.setheading(angle)
+    turns = getTurns(rounds)
+    for turn in turns:
+      t.forward(length)
+      if(turn == 'l'):
+        t.left(60)
+      else:
+        t.right(120)
 
-  for turn in turns:
     t.forward(length)
-    if(turn == 'l'):
-      t.left(45)
-    else:
-      t.right(90)
-
-  t.forward(length)
-
+    time.sleep(1)
+    if depth != rounds:
+      t.clear()
 
   turtle.done()
 
 def getTurns(depth):
-
   if(depth == 0):
     return[]
 
@@ -43,16 +48,6 @@ def getTurns(depth):
     return ['l', 'r', 'l']
 
   return getTurns(depth - 1) + ['l'] + getTurns(depth - 1) + ['r'] + getTurns(depth - 1) + ['l'] + getTurns(depth - 1)
-
-
-def midpointFormula(p1, p2):
-  return{
-    'x': (p1['x'] + p2['x'])/2,
-    'y': (p1['y'] + p2['y'])/2,
-  } 
-
-def lengthOfLine(p1, p2):
-  return math.sqrt((p2['x']- p1['x'])**2 + (p2['y'] - p1['y'])**2)
 
 def move(t, x, y):
   t.penup()
