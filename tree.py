@@ -2,8 +2,10 @@ import turtle
 import random
 
 def main():
+  screen = turtle.Screen()
+  screen.setup(1000, 900)
   t = turtle.Turtle()
-  x = 0
+  x = 10
   y = -400
   penSize = 25
   t.pensize(penSize)

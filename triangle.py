@@ -2,6 +2,8 @@ import turtle
 import math
 
 def main():
+  screen = turtle.Screen()
+  screen.setup(900, 900)
   t = turtle.Turtle()
   penSize = 2
   t.pensize(penSize)
@@ -30,7 +32,7 @@ def drawTriangle(t, p1, p2, p3):
   t.end_fill()
 
 def sierpinskiTriangle(t, topPoint, rightPoint, leftPoint, depth):
-  if depth == 6:
+  if depth == 7:
     return
 
   midPointTR = midpointFormula(topPoint, rightPoint)
